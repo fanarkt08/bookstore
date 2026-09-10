@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nouvelle commande</title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+    </head>
+    <body>
+        <p><a href="/orders">&larr; Commandes</a></p>
+        <h1>Passer une commande</h1>
+
+        <% if (books.length === 0) { %>
+            <p>Aucun livre disponible dans l'inventaire. <a href="/inventory">Ajoutez-en un</a> d'abord.</p>
+        <% } else { %>
+            <form action="/orders/add" method="POST">
+                <label for="bookId">Livre</label>
+                <select id="bookId" name="bookId" onchange="document.getElementById('bookTitle').value = this.options[this.selectedIndex].text">
+                    <% for (let book of books) { %>
+                        <option value="<%= book.id %>"><%= book.title %> - <%= book.author %></option>
+                    <% } %>
+                </select>
+                <input type="hidden" id="bookTitle" name="bookTitle" value="<%= books[0] ? books[0].title : '' %>">
+
+                <label for="customerName">Nom du client</label>
+                <input type="text" id="customerName" name="customerName">
+
+                <label for="quantity">Quantité</label>
+                <input type="number" id="quantity" name="quantity" value="1" min="1">
+
+                <button type="submit">Commander</button>
+            </form>
+        <% } %>
+    </body>
+</html>

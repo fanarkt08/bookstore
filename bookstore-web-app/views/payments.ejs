@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Paiements</title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+    </head>
+    <body>
+        <p><a href="/">&larr; Accueil</a></p>
+        <h1>Paiements</h1>
+        <table border="1" cellpadding="6" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Commande</th>
+                    <th>Montant</th>
+                    <th>Méthode</th>
+                    <th>Statut</th>
+                    <th>Payé le</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (let payment of payments) { %>
+                    <tr>
+                        <td><%= payment.orderId %></td>
+                        <td><%= payment.amount %> €</td>
+                        <td><%= payment.method %></td>
+                        <td><%= payment.status %></td>
+                        <td><%= payment.paidAt ? new Date(payment.paidAt).toLocaleString() : '-' %></td>
+                    </tr>
+                <% } %>
+                <% if (payments.length === 0) { %>
+                    <tr><td colspan="5">Aucun paiement pour le moment.</td></tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <p><a href="/payments/new">Effectuer un paiement</a></p>
+    </body>
+</html>
